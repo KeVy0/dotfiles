@@ -45,7 +45,7 @@ bindsym $mod+d exec dmenu_run -nb "#151515" -nf "#3B50BD" -sb "#272727" -sf "#79
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+x kill
@@ -142,8 +142,8 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-assign [class="Firefox"] 2:www
-assign [instance="spotify"] 3:Music
+assign [class="google-chrome"] 2:www
+assign [class="spotify"] 3:Music
 
 
 # reload the configuration file
@@ -207,6 +207,6 @@ bar {
 bindsym $mod+shift+q exec i3lock
 exec_always feh --bg-scale /home/kev/Bilder/Backgrounds/wallpaper.jpg
 bindsym $mod+Shift+f exec --no-startup-id firefox
-exec --no-startup-id i3-msg 'workspace 1:term; exec /usr/bin/gnome-terminal'
-exec --no-startup-id i3-msg 'workspace 2:www; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace 1:term; exec /usr/bin/urxvt'
+exec --no-startup-id i3-msg 'workspace 2:www; exec /usr/bin/google-chrome'
 exec --no-startup-id i3-msg 'workspace 3:Music; exec /usr/bin/spotify'
