@@ -205,8 +205,10 @@ bar {
 
 
 bindsym $mod+shift+q exec i3lock
+bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/kev/.stuff/rofi/Examples/rofi-file-browser.sh
+bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/kev/.stuff/rofi/Examples/i3_switch_workspaces.sh
 exec_always feh --bg-scale /home/kev/Bilder/Backgrounds/wallpaper.jpg
-bindsym $mod+Shift+f exec --no-startup-id firefox
 exec --no-startup-id i3-msg 'workspace 1:term; exec /usr/bin/urxvt'
 exec --no-startup-id i3-msg 'workspace 2:www; exec /usr/bin/google-chrome'
 exec --no-startup-id i3-msg 'workspace 3:Music; exec /usr/bin/spotify'
+exec --no-startup-id i3-msg 'exec /usr/bin/rofi'
