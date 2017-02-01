@@ -10,8 +10,8 @@ rofi.key-window: Alt+w
 rofi.key-ssh: Alt+s
 
 rofi.opacity:  100
-rofi.width:    90
-rofi.lines:    25
+rofi.width:    70
+rofi.lines:    15
 rofi.font:     DejaVu Sans Mono 9
 rofi.location: 0
 rofi.padding:  5
@@ -36,4 +36,41 @@ rofi.color-active: #4C7073,#DCDCCC,#366060,#5C888B,#FFFFEF
 rofi.color-urgent: #8C5353,#DCDCCC,#7C4343,#9C6363,#FFFFEF
 !
 ! !(call-process-shell-command "xrdb -load ~/.Xresources")
-!
+
+! special
+*.foreground:   #0e0f10
+*.background:   #c5c8c6
+*.cursorColor:  #c5c8c6
+
+! black
+*.color0:       #1d1f21
+*.color8:       #969896
+
+! red
+*.color1:       #cc342b
+*.color9:       #cc342b
+
+! green
+*.color2:       #198844
+*.color10:      #198844
+
+! yellow
+*.color3:       #fba922
+*.color11:      #fba922
+
+! blue
+*.color4:       #3971ed
+*.color12:      #3971ed
+
+! magenta
+*.color5:       #a36ac7
+*.color13:      #a36ac7
+
+! cyan
+*.color6:       #3971ed
+*.color14:      #3971ed
+
+! white
+*.color7:       #c5c8c6
+*.color15:      #ffffff
+
