@@ -6,7 +6,7 @@ for_window [class="^.*"] border pixel 1
 
 
 
-font pango:System San Francisco Display 11
+font pango:Hurmit Nerd Font bold 10
 
 hide_edge_borders both
 
@@ -34,8 +34,7 @@ bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 100 -opaci
 floating_modifier $mod
 
 
-bindsym $mod+Return exec urxvt
-
+bindsym $mod+Return exec gnome-terminal
 
 bindsym $mod+Shift+x kill
 
@@ -74,6 +73,27 @@ bindsym $mod+h split h
 # split in vertical orientation
 bindsym $mod+v split v
 
+
+
+
+# GAPS
+
+gaps inner 15
+gaps outer 15
+
+bindsym $mod+p          gaps inner current plus 5
+bindsym $mod+Shift+p    gaps inner current minus 5
+
+bindsym $mod+m          gaps outer current plus 5
+bindsym $mod+Shift+m    gaps outer current minus 5
+
+bindsym $mod+Shift+g    gaps inner all set 0; gaps outer all set 0
+
+bindsym $mod+Shift+d    gaps inner all set 15; gaps outer all set 15
+
+#
+
+bindsym $mod+r  exec gnome-terminal -e ranger
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -163,13 +183,14 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
 
-set $bg-color 	         #2f343f
+set $bg-color 	         #27343f
 set $inactive-bg-color   #2f343f
 set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53935
+set $urgent-bg-color     #E53945
+##E53945
+##E53945
 
 # window colors
 #                       border              background         text                 indicator
@@ -201,10 +222,10 @@ bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/kev/.stuff/rofi/Examples/
 bindsym $mod+shift+n exec thunar
 bindsym $mod+shift+b exec google-chrome
 exec_always feh --bg-scale /home/kev/Bilder/Backgrounds/wallpaper.jpg
-exec --no-startup-id i3-msg '$workspace1; exec /usr/bin/urxvt'
-exec --no-startup-id i3-msg '$workspace2; exec /usr/bin/google-chrome'
-exec --no-startup-id i3-msg '$workspace3; exec /usr/bin/spotify'
+exec --no-startup-id i3-msg '$workspace1 exec /usr/bin/urxvt'
+exec --no-startup-id i3-msg '$workspace2 exec /usr/bin/google-chrome'
+exec --no-startup-id i3-msg '$workspace3 exec /usr/bin/spotify'
 exec_always redshift 
-exec_always --no-startup-id compton -o 0.3 --backend glx --vsync opengl -b -i 1.0 --config ~/.stuff/compton.conf
-
+exec --no-startup-id compton -F --config ~/.stuff/.compton.conf
+exec --no-startup-id xrdb -load ~/.Xresources
 exec --no-startup-id i3-msg 'exec /usr/bin/shutter'
