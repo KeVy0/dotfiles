@@ -26,8 +26,11 @@ set $red       #FF0000
 set $blue      #005588
 
 ####dmenu#####
-bindsym $mod+d exec rofi -show run -lines 3 -eh 2 -width 100 -padding 100 -opacity "85" -bw 0 -bc "$bg-color" -bg "$bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "#9575cd" -font "System San Francisco Display 18"
-
+bindsym $mod+d exec rofi -show run -lines 7 -eh 3 -width 100 -padding 100 -opacity 90 -bw 0 -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
+bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
+bindsym $mod+Shift+y fullscreen enable; floating disable; resize set 600 400; sticky enable; move window to position 1940 54
+bindsym $mod+n exec ~/.i3/sp.sh next
+bindsym $mod+m exec ~/.i3/sp.sh prev
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -38,10 +41,11 @@ bindsym $mod+Return exec gnome-terminal --hide-menubar
 
 bindsym $mod+Shift+x kill
 
+bindsym XF86Tools workspace $workspace3
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
-
-bindsym $mod+F11 exec amixer set Master 5%-
-bindsym $mod+F12 exec amixer set Master 5%+
 
 # change focus
 bindsym $mod+j focus left
@@ -82,10 +86,8 @@ gaps inner 15
 gaps outer 15
 
 bindsym $mod+p          gaps inner current plus 5
-bindsym $mod+Shift+p    gaps inner current minus 5
 
-bindsym $mod+m          gaps outer current plus 5
-bindsym $mod+Shift+m    gaps outer current minus 5
+bindsym $mod+Shift+p    gaps inner current minus 5
 
 bindsym $mod+Shift+g    gaps inner all set 0; gaps outer all set 0
 
@@ -93,7 +95,8 @@ bindsym $mod+Shift+d    gaps inner all set 15; gaps outer all set 15
 
 #
 
-bindsym $mod+r  exec gnome-terminal -e ranger
+bindsym $mod+r  exec gnome-terminal --hide-menubar -e ranger
+bindsym $mod+Shift+v  exec gnome-terminal --hide-menubar -e gnome-terminal --hide-menubar -e vim
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -112,7 +115,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 set $workspace1 "1 "
-set $workspace2 "2 "
+set $workspace2 "2 "
 set $workspace3 "3 "
 set $workspace4 "4 💻"
 set $workspace5 "5 "
@@ -121,7 +124,7 @@ set $workspace7 "7 "
 set $workspace8 "8 "
 set $workspace9 "9 "
 set $workspace10 "10 "
-
+#"
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
 bindsym $mod+Shift+3 move container to workspace $workspace3
@@ -145,10 +148,9 @@ bindsym $mod+8 workspace $workspace8
 bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 
-assign [class="google-chrome"] $workspace2
-assign [class="Spotify"] $workspace3
 
-
+for_window [window_role="gimp-dock"] floating disable; move left; resize shrink width 50 px or 50ppt
+for_window [window_role="gimp-toolbox"] floating disable; move right; resize grow width 30 px or 30p
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
@@ -217,16 +219,16 @@ bar {
 
 
 bindsym $mod+Shift+q exec ~/.stuff/lock.sh
-bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.stuff/rofi/Examples/rofi-file-browser.sh
-bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.stuff/rofi/Examples/i3_switch_workspaces.sh
+bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.stuff/rofi/Examples/rofi-file-browser.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" 
+bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.stuff/rofi/Examples/i3_switch_workspaces.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" 
+bindsym $mod+shift+m exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" -show SSearch -modi SSearch:/home/k/.stuff/rofi/Examples/test.sh 
 bindsym $mod+shift+n exec nautilus
 bindsym $mod+shift+b exec firefox
 exec_always feh --bg-scale /home/k/Pictures/Backgrounds/wallpaper.jpg
-exec --no-startup-id i3-msg '$workspace1 exec /usr/bin/gnome-terminal'
-exec --no-startup-id i3-msg '$workspace2 exec /usr/bin/firefox'
-exec --no-startup-id i3-msg '$workspace3 exec /usr/bin/spotify'
 exec_always redshift 
 exec --no-startup-id compton -F --config ~/.stuff/.compton.conf
 exec --no-startup-id xrdb -load ~/.Xresources
 exec --no-startup-id i3-msg 'exec /usr/bin/shutter'
-
+exec_always --no-startup-id i3-msg '$workspace2; exec firefox; $workspace1'
+exec --no-startup-id i3-msg '$workspace1; exec gnome-terminal --hide-menubar'
+exec --no-startup-id i3-msg '$workspace3; exec spotify; $workspace1'
