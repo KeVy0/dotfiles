@@ -6,8 +6,9 @@ for_window [class="^.*"] border pixel 1
 
 new_window 1pixel
 
-font pango:Hurmit Nerd Font bold 10
-
+font pango:Source Code Pro Semibold 11
+#font pango:OCRB Bold 10
+#font pango:Monaco Regular 11
 hide_edge_borders both
 
 
@@ -30,7 +31,8 @@ bindsym $mod+d exec rofi -show run -lines 7 -eh 3 -width 100 -padding 100 -opaci
 bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
 bindsym $mod+Shift+y fullscreen enable; floating disable; resize set 600 400; sticky enable; move window to position 1940 54
 bindsym $mod+n exec ~/.i3/sp.sh next
-bindsym $mod+m exec ~/.i3/sp.sh prev
+bindsym $mod+b exec ~/.i3/sp.sh prev
+bindsym $mod+m exec ~/.i3/sp.sh play
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -38,6 +40,7 @@ floating_modifier $mod
 
 
 bindsym $mod+Return exec gnome-terminal --hide-menubar
+bindsym XF86Calculator exec galculator
 
 bindsym $mod+Shift+x kill
 
@@ -95,7 +98,7 @@ bindsym $mod+Shift+d    gaps inner all set 15; gaps outer all set 15
 
 #
 
-bindsym $mod+r  exec gnome-terminal --hide-menubar -e ranger
+bindsym $mod+Ctrl+r  exec gnome-terminal --hide-menubar -e ranger
 bindsym $mod+Shift+v  exec gnome-terminal --hide-menubar -e gnome-terminal --hide-menubar -e vim
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -114,16 +117,16 @@ bindsym $mod+space focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-set $workspace1 "1 "
-set $workspace2 "2 "
-set $workspace3 "3 "
-set $workspace4 "4 💻"
-set $workspace5 "5 "
-set $workspace6 "6 "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "10 "
+set $workspace1 "1  "
+set $workspace2 "2  " 
+set $workspace3 "3  "
+set $workspace4 "4 💻  
+set $workspace5 "5  "
+set $workspace6 "6  "
+set $workspace7 "7  "
+set $workspace8 "8  "
+set $workspace9 "9  "
+set $workspace10 "10  "
 #"
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
@@ -184,7 +187,7 @@ mode "resize" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
+bindsym $mod+r mode "resize"
 
 set $bg-color 	         #27343f
 set $inactive-bg-color   #2f343f
@@ -221,14 +224,13 @@ bar {
 bindsym $mod+Shift+q exec ~/.stuff/lock.sh
 bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.stuff/rofi/Examples/rofi-file-browser.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" 
 bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.stuff/rofi/Examples/i3_switch_workspaces.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" 
-bindsym $mod+shift+m exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" -show SSearch -modi SSearch:/home/k/.stuff/rofi/Examples/test.sh 
-bindsym $mod+shift+n exec nautilus
+bindsym $mod+shift+s exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" -show SSearch -modi SSearch:/home/k/.stuff/rofi/Examples/test.sh 
+bindsym $mod+shift+n exec nautilus --no-desktop
 bindsym $mod+shift+b exec firefox
 exec_always feh --bg-scale /home/k/Pictures/Backgrounds/wallpaper.jpg
 exec_always redshift 
 exec --no-startup-id compton -F --config ~/.stuff/.compton.conf
 exec --no-startup-id xrdb -load ~/.Xresources
-exec --no-startup-id i3-msg 'exec /usr/bin/shutter'
-exec_always --no-startup-id i3-msg '$workspace2; exec firefox; $workspace1'
-exec --no-startup-id i3-msg '$workspace1; exec gnome-terminal --hide-menubar'
-exec --no-startup-id i3-msg '$workspace3; exec spotify; $workspace1'
+exec --no-startup-id i3-msg 'workspace $workspace2; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace $workspace1; exec /usr/bin/gnome-terminal --hide-menubar'
+exec --no-startup-id i3-msg 'workspace $workspace3; exec /usr/bin/spotify'
