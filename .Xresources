@@ -1,9 +1,9 @@
-!rofi.color-enabled: true
-!rofi.color-window: #273238, #273238, #1e2529
-!rofi.color-normal: #273238, #c1c1c1, #273238, #394249, #ffffff
-!rofi.color-active: #273238, #80cbc4, #273238, #394249, #80cbc4
-!rofi.color-urgent: #273238, #ff1844, #273238, #394249, #ff1844
-rofi.key-run: Alt+d
+rofi.color-enabled: true
+rofi.color-window: #0e0f10, #0e0f10, #1e2529
+rofi.color-normal: #0e0f10, #c1c1c1, #0e0f10, #394249, #ffffff
+rofi.color-active: #0e0f10, #80cbc4, #0e0f10, #394249, #80cbc4
+rofi.color-urgent: #0e0f10, #ff1844, #0e0f10, #394249, #ff1844
+rrofi.key-run: Alt+d
 ! rofi -- dmenu clone
 rofi.key-window: Alt+w
 
@@ -12,7 +12,7 @@ rofi.key-ssh: Alt+s
 rofi.opacity:  100
 rofi.width:    70
 rofi.lines:    15
-rofi.font:     DejaVu Sans Mono 9
+rofi.font:     Hack 12
 rofi.location: 0
 rofi.padding:  5
 ! rofi -- dmenu clone
@@ -23,19 +23,9 @@ rofi.padding:  5
 ! rofi.location: 0
 ! rofi.padding:  5
 !
-rofi.color-enabled: true
-rofi.color-window: #3F3F3F,#000000
 !
 ! ! State:           bg,     fg,     bgalt   hlbg,   hlfg
 ! ! zenburn:         bg,     fg,     bg-05,  bg+1,   fg+1
-rofi.color-normal: #3F3F3F,#DCDCCC,#383838,#4F4F4F,#FFFFEF
-! !                  blue-4, fg,     blue-5, blue-3, fg+1
-rofi.color-active: #4C7073,#DCDCCC,#366060,#5C888B,#FFFFEF
-! !                  red-4,  fg,     red-5,  red-3,  fg+1
-!
-rofi.color-urgent: #8C5353,#DCDCCC,#7C4343,#9C6363,#FFFFEF
-!
-! !(call-process-shell-command "xrdb -load ~/.Xresources")
 
 ! special
 *.foreground:   #0e0f10
@@ -74,3 +64,41 @@ rofi.color-urgent: #8C5353,#DCDCCC,#7C4343,#9C6363,#FFFFEF
 *.color7:       #c5c8c6
 *.color15:      #ffffff
 
+! -----------------------------------------------------------------------------
+! File: gruvbox-urxvt256.xresources
+! Description: Retro groove colorscheme generalized
+! Author: morhetz <morhetz@gmail.com>
+! Source: https://github.com/morhetz/gruvbox-generalized
+! Last Modified: 13 Dec 2013
+! -----------------------------------------------------------------------------
+
+URxvt.color24:  #076678
+URxvt.color66:  #427b58
+URxvt.color88:  #9d0006
+URxvt.color96:  #8f3f71
+URxvt.color100: #79740e
+URxvt.color108: #8ec07c
+URxvt.color109: #83a598
+URxvt.color130: #af3a03
+URxvt.color136: #b57614
+URxvt.color142: #b8bb26
+URxvt.color167: #fb4934
+URxvt.color175: #d3869b
+URxvt.color208: #fe8019
+URxvt.color214: #fabd2f
+URxvt.color223: #ebdbb2
+URxvt.color228: #f2e5bc
+URxvt.color229: #fbf1c7
+URxvt.color230: #f9f5d7
+URxvt.color234: #1d2021
+URxvt.color235: #282828
+URxvt.color236: #32302f
+URxvt.color237: #3c3836
+URxvt.color239: #504945
+URxvt.color241: #665c54
+URxvt.color243: #7c6f64
+URxvt.color244: #928374
+URxvt.color245: #928374
+URxvt.color246: #a89984
+URxvt.color248: #bdae93
+URxvt.color250: #d5c4a1
