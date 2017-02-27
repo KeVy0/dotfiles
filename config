@@ -6,13 +6,13 @@ for_window [class="^.*"] border pixel 1
 
 new_window 1pixel
 
-font pango:Source Code Pro Semibold 11
+#font pango:Inconsolta-dz dz 11 
 #font pango:OCRB Bold 10
 #font pango:Monaco Regular 11
 hide_edge_borders both
 
 
-#font pango: Sauce Code Powerline Regular 10
+font pango: Iosevka Regular 12
 client.focused          $darkgray $darkgray #FFFFFF   #333333
 client.focused_inactive $darkgray $darkgray #FFFFFF   #000000
 client.unfocused        $black    $black    #FFFFFF   #000000
@@ -21,13 +21,13 @@ set $lightgray #AAAAAA
 set $gray      #484848
 set $gray2     #757575
 set $darkgray  #333333
-set $black     #000000
-set $white     #FFFFFF
+set $black     #0e0f10
+set $white     #C5C8C6
 set $red       #FF0000
 set $blue      #005588
 
 ####dmenu#####
-bindsym $mod+d exec rofi -show run -lines 7 -eh 3 -width 100 -padding 100 -opacity 90 -bw 0 -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
+bindsym $mod+d exec rofi -show run -lines 7 --hide-scrollbar -eh 3 -width 100 -padding 100 -opacity 90 -bw 0 -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
 bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
 bindsym $mod+Shift+y fullscreen enable; floating disable; resize set 600 400; sticky enable; move window to position 1940 54
 bindsym $mod+n exec ~/.i3/sp.sh next
@@ -46,7 +46,9 @@ bindsym $mod+Shift+x kill
 
 bindsym XF86Tools workspace $workspace3
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5
+
+
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
 
@@ -118,14 +120,14 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 set $workspace1 "1  "
-set $workspace2 "2  " 
+set $workspace2 "2  "
 set $workspace3 "3  "
-set $workspace4 "4 💻  
-set $workspace5 "5  "
-set $workspace6 "6  "
-set $workspace7 "7  "
-set $workspace8 "8  "
-set $workspace9 "9  "
+set $workspace4 "4 💻" 
+set $workspace5 "5 "
+set $workspace6 "6 "
+set $workspace7 "7 "
+set $workspace8 "8 "
+set $workspace9 "9 "
 set $workspace10 "10  "
 #"
 bindsym $mod+Shift+1 move container to workspace $workspace1
@@ -199,10 +201,10 @@ set $urgent-bg-color     #E53945
 
 # window colors
 #                       border              background         text                 indicator
-client.focused          #000000           $black          $text-color          #00ff00
-client.unfocused        $iancative-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.focused_inactive $iancative-bg-color $inactive-bg-color $inactive-text-color #00ff00
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #00ff00
+client.focused          #000000           $black          $text-color               #030585
+client.unfocused        $iancative-bg-color $inactive-bg-color $inactive-text-color #030585
+client.focused_inactive $iancative-bg-color $inactive-bg-color $inactive-text-color #030585
+client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #030585
 
 bar {
 
@@ -217,20 +219,21 @@ bar {
 	# i3bar position
 	position top
 	# Using custom i3status.conf
-    status_command i3blocks	
+    status_command i3blocks
 }
 
 
+bindsym $mod+q exec qutebrowser
 bindsym $mod+Shift+q exec ~/.stuff/lock.sh
-bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.stuff/rofi/Examples/rofi-file-browser.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" 
-bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.stuff/rofi/Examples/i3_switch_workspaces.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" 
-bindsym $mod+shift+s exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" -show SSearch -modi SSearch:/home/k/.stuff/rofi/Examples/test.sh 
+bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.stuff/rofi/Examples/rofi-file-browser.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
+bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.stuff/rofi/Examples/i3_switch_workspaces.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
+bindsym $mod+shift+s exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" -show SSearch -modi SSearch:/home/k/.stuff/rofi/Examples/test.sh
 bindsym $mod+shift+n exec nautilus --no-desktop
-bindsym $mod+shift+b exec firefox
+bindsym $mod+shift+b exec qutebrowser
 exec_always feh --bg-scale /home/k/Pictures/Backgrounds/wallpaper.jpg
-exec_always redshift 
+exec_always redshift
 exec --no-startup-id compton -F --config ~/.stuff/.compton.conf
 exec --no-startup-id xrdb -load ~/.Xresources
-exec --no-startup-id i3-msg 'workspace $workspace2; exec /usr/bin/firefox'
+exec --no-startup-id i3-msg 'workspace $workspace2; exec qutebrowser'
 exec --no-startup-id i3-msg 'workspace $workspace1; exec /usr/bin/gnome-terminal --hide-menubar'
 exec --no-startup-id i3-msg 'workspace $workspace3; exec /usr/bin/spotify'
