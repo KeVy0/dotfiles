@@ -9,7 +9,6 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'chriskempson/base16-vim'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
@@ -21,27 +20,15 @@ Plugin 'Valloric/MatchTagAlways'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-Bundle 'gabrielelana/vim-markdown'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'gabrielelana/vim-markdown'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'tpope/vim-commentary'
+Plugin 'chrisbra/Colorizer'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -51,9 +38,25 @@ set rtp+=~/.fzf
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let delimitMate_expand_cr = 1
+let g:colorizer_auto_color = 1
 " Set to auto read when a file is changed from the outside
 set autoread
+" Default mapping
+let g:multi_cursor_next_key='<C-x>'
+let g:multi_cursor_prev_key='<C-b>'
+let g:multi_cursor_skip_key='<C-o>'
+let g:multi_cursor_quit_key='<Esc>'
+" Map start key separately from next key
+let g:multi_cursor_start_key='<F6>'
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -64,6 +67,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-t> :NERDTreeToggle<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
+let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -75,6 +79,7 @@ set bg=dark
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
+let g:airline_powerline_fonts = 1
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en' 
@@ -435,12 +440,15 @@ noremap <C-v> :set nopaste<CR>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='gruvbox'
-nnoremap qq <Esc>
-vnoremap qq <Esc>gV
-onoremap qq <Esc>
-inoremap qq <Esc>`^
+nnoremap ää <Esc>
+vnoremap ää <Esc>gV
+onoremap ää <Esc>
+inoremap ää <Esc>`^
 inoremap <Leader>q q
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
+nnoremap <F5> :buffers<CR>:buffer<Space>
+nnoremap <F10> :SyntasticToggleMode<CR>
+nnoremap <F9> :SyntasticCheck<CR>
