@@ -1,240 +1,27 @@
-
-
-set $mod Mod4
-
-for_window [class="^.*"] border pixel 1
-
-new_window 1pixel
-
-#font pango:Inconsolta-dz dz 11 
-#font pango:OCRB Bold 10
-#font pango:Monaco Regular 11
-hide_edge_borders both
-
-
-font pango: Iosevka Regular 12
-client.focused          $darkgray $darkgray #FFFFFF   #333333
-client.focused_inactive $darkgray $darkgray #FFFFFF   #0e0f10
-client.unfocused        $black    $black    #FFFFFF   #0e0f10
-
-set $lightgray #AAAAAA
-set $gray      #484848
-set $gray2     #757575
-set $darkgray  #333333
-set $black     #0e0f10
-set $white     #C5C8C6
-set $red       #FF0000
-set $blue      #005588
-
-####dmenu#####
-bindsym $mod+d exec rofi -show run -lines 7 --hide-scrollbar -eh 3 -width 100 -padding 100 -opacity 90 -bw 0 -bc "#0e0f10" -bg "#0e0f10" -hlbg "#0e0f10" -hlfg "#0e0f10" -fg "#0e0f10" -font "Monaco Bold 16"
-bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
-bindsym $mod+Shift+y fullscreen enable; floating disable; resize set 600 400; sticky enable; move window to position 1940 54
-bindsym $mod+n exec ~/.i3/sp.sh next
-bindsym $mod+b exec ~/.i3/sp.sh prev
-bindsym $mod+m exec ~/.i3/sp.sh play
-
-
-# Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
-
-
-bindsym $mod+Return exec gnome-terminal --hide-menubar
-bindsym XF86Calculator exec galculator
-
-bindsym $mod+Shift+x kill
-
-bindsym XF86Tools workspace $workspace3
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5
-
-
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-
-
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+odiaeresis focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
-bindsym $mod+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
-
-
-
-
-# GAPS
-
-gaps inner 15
-gaps outer 15
-
-bindsym $mod+p          gaps inner current plus 5
-
-bindsym $mod+Shift+p    gaps inner current minus 5
-
-bindsym $mod+Shift+g    gaps inner all set 0; gaps outer all set 0
-
-bindsym $mod+Shift+d    gaps inner all set 15; gaps outer all set 15
-
-#
-
-bindsym $mod+Ctrl+r  exec gnome-terminal --hide-menubar -e ranger
-bindsym $mod+Shift+v  exec gnome-terminal --hide-menubar -e gnome-terminal --hide-menubar -e vim
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
-# focus the parent container
-bindsym $mod+a focus parent
-
-set $workspace1 "1  "
-set $workspace2 "2  "
-set $workspace3 "3  "
-set $workspace4 "4 💻" 
-set $workspace5 "5 "
-set $workspace6 "6 "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "10  "
-#"
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
-bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace $workspace4
-bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7
-bindsym $mod+Shift+8 move container to workspace $workspace8
-bindsym $mod+Shift+9 move container to workspace $workspace9
-bindsym $mod+Shift+0 move container to workspace $workspace10
-
-# switch to workspace
-bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
-bindsym $mod+3 workspace $workspace3
-bindsym $mod+4 workspace $workspace4
-bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
-bindsym $mod+8 workspace $workspace8
-bindsym $mod+9 workspace $workspace9
-bindsym $mod+0 workspace $workspace10
-
-
-for_window [window_role="gimp-dock"] floating disable; move left; resize shrink width 50 px or 50ppt
-for_window [window_role="gimp-toolbox"] floating disable; move right; resize grow width 30 px or 30p
-# reload the configuration file
-bindsym $mod+Shift+c reload
-
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
-
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym odiaeresis resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
-
-set $bg-color 	         #27343f
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-bg-color     #E53945
-##E53945
-##E53945
-
-# window colors
-#                       border              background         text                 indicator
-client.focused          #000000           $black          $text-color               #030585
-client.unfocused        $iancative-bg-color $inactive-bg-color $inactive-text-color #030585
-client.focused_inactive $iancative-bg-color $inactive-bg-color $inactive-text-color #030585
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #030585
-
-bar {
-
-	colors {
-		background $black
-	    	separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $black          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
-	# i3bar position
-	position top
-	# Using custom i3status.conf
-    status_command i3blocks
-}
-
-
-bindsym $mod+q exec qutebrowser
-bindsym $mod+Shift+q exec ~/.stuff/lock.sh
-bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.stuff/rofi/Examples/rofi-file-browser.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
-bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.stuff/rofi/Examples/i3_switch_workspaces.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16"
-bindsym $mod+shift+s exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Monaco Bold 16" -show SSearch -modi SSearch:/home/k/.stuff/rofi/Examples/test.sh
-bindsym $mod+shift+n exec nautilus --no-desktop
-bindsym $mod+shift+b exec qutebrowser
-exec_always feh --bg-scale /home/k/Pictures/Backgrounds/wallpaper.jpg
-exec_always redshift
-exec --no-startup-id compton -F --config ~/.stuff/.compton.conf
-exec --no-startup-id xrdb -load ~/.Xresources
-exec --no-startup-id i3-msg 'workspace $workspace2; exec qutebrowser'
-exec --no-startup-id i3-msg 'workspace $workspace1; exec /usr/bin/gnome-terminal --hide-menubar'
-exec --no-startup-id i3-msg 'workspace $workspace3; exec /usr/bin/spotify'
-exec_always setxkbmap -option caps:swapescape
+refresh-on-startup yes
+browser qutebrowser
+color listnormal_unread cyan black
+datetime-format "%b %d %R"
+max-items 20
+keep-articles-days 3
+show-read-feeds no
+show-read-articles no
+mark-as-read-on-hover yes
+auto-reload yes
+reload-time 5
+reload-threads 32
+html-renderer "w3m -T text/html"
+pager internal
+unbind-key g
+bind-key g home
+bind-key k up
+bind-key j down
+bind-key h quit
+bind-key d mark-feed-read
+bind-key D mark-all-feeds-read
+unbind-key l
+bind-key l open
+## colors {{{1
+color   info        white black bold    
+color   listfocus   red black bold
+color   listfocus_unread   white black bold
