@@ -21,7 +21,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'gabrielelana/vim-markdown'
+Plugin 'tpope/vim-markdown'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'chrisbra/Colorizer'
@@ -156,7 +156,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme gruvbox
+    colorscheme Tomorrow-Night-Eighties 
 catch
 endtry
 
@@ -436,7 +436,7 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 noremap <C-c> :set paste<CR> 
-noremap <C-v> :set nopaste<CR>
+noremap <C-f> :set nopaste<CR>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='gruvbox'
@@ -452,3 +452,8 @@ noremap <Right> <Nop>
 nnoremap <F5> :buffers<CR>:buffer<Space>
 nnoremap <F10> :SyntasticToggleMode<CR>
 nnoremap <F9> :SyntasticCheck<CR>
+nnoremap ü  `
+nnoremap ä  /
+nnoremap Ä  ?
+nnoremap ö  {
+nnoremap Ö  }
