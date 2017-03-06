@@ -27,7 +27,7 @@ set $red       #FF0000
 set $blue      #005588
 
 ####dmenu#####
-bindsym $mod+d exec rofi -show run -lines 7 --hide-scrollbar -eh 3 -width 100 -padding 100 -opacity 90 -bw 0 -bc "#0e0f10" -bg "#0e0f10" -hlbg "#0e0f10" -hlfg "#0e0f10" -fg "#0e0f10" -font "Monaco Bold 16"
+bindsym $mod+d exec rofi -show run -lines 7 --hide-scrollbar -eh 3 -width 100 -padding 100 -opacity 80 -bw 0 -bc "#0e0f10" -bg "#0e0f10" -hlbg "#0e0f10" -hlfg "#0e0f10" -fg "#0e0f10" -font "Monaco Bold 16"
 bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
 bindsym $mod+Shift+y fullscreen enable; floating disable; resize set 600 400; sticky enable; move window to position 1940 54
 bindsym $mod+n exec ~/.i3/sp.sh next
@@ -46,7 +46,7 @@ bindsym $mod+Shift+x kill
 
 bindsym XF86Tools workspace $workspace3
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 
 
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
@@ -238,4 +238,5 @@ exec --no-startup-id i3-msg 'workspace $workspace2; exec qutebrowser'
 exec --no-startup-id i3-msg 'workspace $workspace1; exec /usr/bin/gnome-terminal --hide-menubar'
 exec --no-startup-id i3-msg 'workspace $workspace3; exec /usr/bin/spotify'
 exec_always setxkbmap -option caps:swapescape
-exec_always bash ~/.stuff/test.sh
+exec bash ~/.stuff/test.sh
+exec redshift-gtk
