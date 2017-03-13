@@ -9,6 +9,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
@@ -16,16 +17,20 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-Plugin 'Valloric/MatchTagAlways'
+"Plugin 'Valloric/MatchTagAlways'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-markdown'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'chrisbra/Colorizer'
-
+Plugin 'xuhdev/vim-latex-live-preview'
+Plugin 'mattn/emmet-vim'
+Plugin 'greyblake/vim-preview'
+Plugin 'sukima/xmledit'
+Plugin 'vim-latex/vim-latex'
+Plugin 'uguu-org/vim-matrix-screensaver'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -63,7 +68,6 @@ let g:multi_cursor_start_key='<F6>'
 let mapleader = ","
 let g:mapleader = ","
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-t> :NERDTreeToggle<CR>
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -73,7 +77,7 @@ let g:ycm_python_binary_path = '/usr/bin/python3'
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 let base16colorspace=256  " Access colors present in 256 colorspace
-set bg=dark
+set bg=dark    
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,7 +160,7 @@ if $COLORTERM == 'gnome-terminal'
 endif
 
 try
-    colorscheme Tomorrow-Night-Eighties 
+    colorscheme PaperColor 
 catch
 endtry
 
@@ -439,7 +443,8 @@ noremap <C-c> :set paste<CR>
 noremap <C-f> :set nopaste<CR>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='gruvbox'
+let g:airline_theme='badwolf'
+let g:livepreview_previewer = 'zathura'
 nnoremap ää <Esc>
 vnoremap ää <Esc>gV
 onoremap ää <Esc>
@@ -454,6 +459,7 @@ nnoremap <F10> :SyntasticToggleMode<CR>
 nnoremap <F9> :SyntasticCheck<CR>
 nnoremap ü  `
 nnoremap ä  /
-nnoremap Ä  ?
+nnoremap ß  $
 nnoremap ö  {
 nnoremap Ö  }
+cmap w!! w !sudo tee % > /dev/null
