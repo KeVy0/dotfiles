@@ -31,6 +31,7 @@ Plugin 'greyblake/vim-preview'
 Plugin 'sukima/xmledit'
 Plugin 'vim-latex/vim-latex'
 Plugin 'uguu-org/vim-matrix-screensaver'
+Plugin 'easymotion/vim-easymotion'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -445,11 +446,6 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='badwolf'
 let g:livepreview_previewer = 'zathura'
-nnoremap ää <Esc>
-vnoremap ää <Esc>gV
-onoremap ää <Esc>
-inoremap ää <Esc>`^
-inoremap <Leader>q q
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
@@ -463,3 +459,25 @@ nnoremap ß  $
 nnoremap ö  {
 nnoremap Ö  }
 cmap w!! w !sudo tee % > /dev/null
+nnoremap tn :tabnew<Space>
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+nnoremap th :tabfirst<CR>
+nnoremap tl :tablast<CR>
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
