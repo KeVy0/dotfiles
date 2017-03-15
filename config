@@ -241,3 +241,4 @@ exec_always setxkbmap -option caps:swapescape
 exec bash ~/.stuff/test.sh
 exec_always compton --inactive-dim 0.3 --focus-exclude '_NET_WM_NAME@:s = "rofi"' -c -f -C -r 15 --config=/home/k/.config/compton.conf --shadow-blue 0.8 --shadow-green 0.8 --shadow-red 0.8
 exec guake
+bindsym $mod+c exec rofi --bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Hurmit Nerd Font bold 14" -modi "clipboard:greenclip print" -show clipboard
