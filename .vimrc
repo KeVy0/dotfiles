@@ -17,467 +17,451 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-"Plugin 'Valloric/MatchTagAlways'
-Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'valloric/matchtagalways'
+Plugin 'marcweber/vim-addon-mw-utils'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-markdown'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-commentary'
-Plugin 'chrisbra/Colorizer'
+Plugin 'chrisbra/colorizer'
 Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'mattn/emmet-vim'
 Plugin 'greyblake/vim-preview'
-Plugin 'sukima/xmledit'
 Plugin 'vim-latex/vim-latex'
 Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'easymotion/vim-easymotion'
-" All of your Plugins must be added before the following line
+Plugin 'shougo/neocomplete.vim'
+Plugin 'yggdroot/indentline'
+Plugin 'jiangmiao/auto-pairs'
+" all of your plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
+" => general
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
+" sets how many lines of history vim has to remember
 set history=500
 set rtp+=~/.fzf
-" Enable filetype plugins
+" enable filetype plugins
+"Easy saving
+inoremap <C-s> <Esc>:w!<Enter>i
+nnoremap <C-s> :w!<Enter>
+"Auto reload vimrc
+augroup reload_vimrc " {
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
+
 filetype plugin on
 filetype indent on
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{syntasticstatuslineflag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let delimitMate_expand_cr = 1
+let delimitmate_expand_cr = 1
 let g:colorizer_auto_color = 1
-" Set to auto read when a file is changed from the outside
+" set to auto read when a file is changed from the outside
 set autoread
-" Default mapping
-let g:multi_cursor_next_key='<C-x>'
-let g:multi_cursor_prev_key='<C-b>'
-let g:multi_cursor_skip_key='<C-o>'
-let g:multi_cursor_quit_key='<Esc>'
-" Map start key separately from next key
-let g:multi_cursor_start_key='<F6>'
+" default mapping
+let g:multi_cursor_next_key='<c-x>'
+let g:multi_cursor_prev_key='<c-b>'
+let g:multi_cursor_skip_key='<c-o>'
+let g:multi_cursor_quit_key='<esc>'
+" map start key separately from next key
+let g:multi_cursor_start_key='<f6>'
 
-" With a map leader it's possible to do extra key combinations
+" with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-autocmd StdinReadPre * let s:std_in=1
-map <C-t> :NERDTreeToggle<CR>
-" Fast saving
+let mapleader = "ä"
+let g:mapleader = "ä"
+autocmd stdinreadpre * let s:std_in=1
+map <c-t> :nerdtreetoggle<cr>
+let g:LatexBox_latexmk_options = "-pvc -pdfps"
+let g:Tex_CompileRule_pdf = 'latexmk -pdf'
+" fast saving
 nmap <leader>w :w!<cr>
 let g:ycm_python_binary_path = '/usr/bin/python3'
 
-" :W sudo saves the file 
-" (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
-let base16colorspace=256  " Access colors present in 256 colorspace
+let base16colorspace=256  " access colors present in 256 colorspace
 set bg=dark    
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
+" => vim user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
+" set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 let g:airline_powerline_fonts = 1
 
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en' 
+" avoid garbled characters in chinese language windows os
+let $lang='en' 
 set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
 
-" Turn on the WiLd menu
+" turn on the wild menu
 set wildmenu
 set relativenumber
-" Ignore compiled files
+" ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.ds_store
 endif
 
-"Always show current position
+"always show current position
 set ruler
 
-" Height of the command bar
+" height of the command bar
 set cmdheight=2
 
-" A buffer becomes hidden when it is abandoned
+" a buffer becomes hidden when it is abandoned
 set hid
 
-" Configure backspace so it acts as it should act
+" configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
-" Ignore case when searching
+" ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" when searching try to be smart about cases 
 set smartcase
 
-" Highlight search results
+" highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
+" makes search act like search in modern browsers
 set incsearch 
 
-" Don't redraw while executing macros (good performance config)
+" don't redraw while executing macros (good performance config)
 set lazyredraw 
 
-" For regular expressions turn magic on
+" for regular expressions turn magic on
 set magic
 
-" Show matching brackets when text indicator is over them
+" show matching brackets when text indicator is over them
 set showmatch 
-" How many tenths of a second to blink when matching brackets
+" how many tenths of a second to blink when matching brackets
 set mat=2
 
-" No annoying sound on errors
+" no annoying sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
 
-" Add a bit extra margin to the left
+" add a bit extra margin to the left
 set foldcolumn=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
+" => colors and fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
+" enable syntax highlighting
 syntax enable 
 
-" Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-
-try
-    colorscheme PaperColor 
-catch
-endtry
+colorscheme gruvbox 
 
 
-" Set extra options when running in GUI mode
+" set extra options when running in gui mode
 if has("gui_running")
-    set guioptions-=T
+    set guioptions-=t
     set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
+    set t_co=256
+    set guitablabel=%m\ %t
 endif
 
-" Set utf8 as standard encoding and en_US as the standard language
+" set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
 
-" Use Unix as the standard file type
+" use unix as the standard file type
 set ffs=unix,dos,mac
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
+" => files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" turn backup off, since most stuff is in svn, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
+" use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" be smart when using tabs ;)
 set smarttab
 
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" linebreak on 500 characters
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+set ai "auto indent
+set si "smart indent
+set wrap "wrap lines
 
 
 """"""""""""""""""""""""""""""
-" => Visual mode related
+" => visual mode related
 """"""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+" visual mode pressing * or # searches for the current selection
+" super useful! from an idea by michael naumann
+vnoremap <silent> * :<c-u>call visualselection('', '')<cr>/<c-r>=@/<cr><cr>
+vnoremap <silent> # :<c-u>call visualselection('', '')<cr>?<c-r>=@/<cr><cr>
 
+" smart way to move between windows
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-h> <c-w>h
+map <c-l> <c-w>l
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+" close the current buffer
+map <leader>bd :bclose<cr>:tabclose<cr>gt
 
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
-
-" Close all the buffers
+" close all the buffers
 map <leader>ba :bufdo bd<cr>
 
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 
-" Useful mappings for managing tabs
+" useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove 
 map <leader>t<leader> :tabnext 
 
-" Let 'tl' toggle between this and the last accessed tab
+" let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+nmap <leader>tl :exe "tabn ".g:lasttab<cr>
+au tableave * let g:lasttab = tabpagenr()
 
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
+" opens a new tab with the current buffer's path
+" super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Specify the behavior when switching between buffers 
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
 
 """"""""""""""""""""""""""""""
-" => Status line
+" => status line
 """"""""""""""""""""""""""""""
-" Always show the status line
+" always show the status line
 set laststatus=2
 
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" format the status line
+set statusline=\ %{haspaste()}%f%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ line:\ %l\ \ column:\ %c
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
+" => editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
+" remap vim 0 to first non-blank character
 map 0 ^
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"    requires ag.vim - it's much better than vimgrep/grep
+" => spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you Ag after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ag and put the cursor in the right position
-map <leader>g :Ag 
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
+" pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction 
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", "\\/.*'$^~[]")
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'gv'
-        call CmdLine("Ag '" . l:pattern . "' " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
-
-" Make VIM remember position in file after reopen
+" make vim remember position in file after reopen
 if has("autocmd")
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_cmd = 'ctrlp'
 
-noremap <C-c> :set paste<CR> 
-noremap <C-f> :set nopaste<CR>
+noremap <c-c> :set paste<cr> 
+noremap <c-f> :set nopaste<cr>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='badwolf'
+let g:airline_theme='base16'
 let g:livepreview_previewer = 'zathura'
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-nnoremap <F5> :buffers<CR>:buffer<Space>
-nnoremap <F10> :SyntasticToggleMode<CR>
-nnoremap <F9> :SyntasticCheck<CR>
+" keine pfeiltasten
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+
+nnoremap <f10> :syntastictogglemode<cr>
+nnoremap <f9> :syntasticcheck<cr>
 nnoremap ü  `
-nnoremap ä  /
+nnoremap ä  <leader>
 nnoremap ß  $
 nnoremap ö  {
-nnoremap Ö  }
+nnoremap ö  }
 cmap w!! w !sudo tee % > /dev/null
-nnoremap tn :tabnew<Space>
-nnoremap tk :tabnext<CR>
-nnoremap tj :tabprev<CR>
-nnoremap th :tabfirst<CR>
-nnoremap tl :tablast<CR>
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nnoremap tn :tabnew<space>
+nnoremap tk :tabnext<cr>
+nnoremap tj :tabprev<cr>
+nnoremap th :tabfirst<cr>
+nnoremap tl :tablast<cr>
+let g:easymotion_do_mapping = 0 " disable default mappings
 
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap s <Plug>(easymotion-overwin-f)
+nmap s <plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-nmap s <Plug>(easymotion-overwin-f2)
+" need one more keystroke, but on average, it may be more comfortable.
+nmap s <plug>(easymotion-overwin-f2)
 
-" Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
+" turn on case insensitive feature
+let g:easymotion_smartcase = 1
 
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+" jk motions: line motions
+map <leader>j <plug>(easymotion-j)
+map <leader>k <plug>(easymotion-k)
+"note: this option must be set in .vimrc(_vimrc).  not in .gvimrc(_gvimrc)!
+" disable autocomplpop.
+let g:acp_enableatstartup = 0
+" use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $home.'/.vimshell_hist',
+    \ 'scheme' : $home.'/.gosh_completions'
+        \ }
+
+" define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" plugin key-mappings.
+inoremap <expr><c-g>     neocomplete#undo_completion()
+inoremap <expr><c-l>     neocomplete#complete_common_string()
+
+" recommended key-mappings.
+" <cr>: close popup and save indent.
+inoremap <silent> <cr> <c-r>=<sid>my_cr_function()<cr>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<c-y>" : "" ) . "\<cr>"
+  " for no inserting <cr> key.
+  "return pumvisible() ? "\<c-y>" : "\<cr>"
+endfunction
+" <tab>: completion.
+inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
+" <c-h>, <bs>: close popup and delete backword char.
+inoremap <expr><c-h> neocomplete#smart_close_popup()."\<c-h>"
+inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
+" close popup by <space>.
+"inoremap <expr><space> pumvisible() ? "\<c-y>" : "\<space>"
+
+" autocomplpop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><tab>  pumvisible() ? "\<down>" : "\<c-x>\<c-u>"
+
+" enable omni completion.
+autocmd filetype css setlocal omnifunc=csscomplete#completecss
+"autocmd filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
+autocmd filetype javascript setlocal omnifunc=javascriptcomplete#completejs
+autocmd filetype python setlocal omnifunc=pythoncomplete#complete
+autocmd filetype xml setlocal omnifunc=xmlcomplete#completetags
+
+" enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" for perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+
+"Move around with Guide (<++>)
+inoremap <space><space> <esc>/<++><enter>"_c4l
+vnoremap <space><space> <esc>/<++><enter>"_c4l
+nnoremap <space><space> <esc>/<++><enter>"_c4l
+map <space><space> <esc>/<++><enter>"_c4l
+
+nnoremap ;gui i<++><esc>
+inoremap ;gui <++>
+inoremap <C-l> <Space><Space>
+nnoremap ;it vit<esc>i
+inoremap ;it <esc>vit<esc>i
+nnoremap ;ct vitc
+inoremap ;ct <esc>vitc
+
+"auto vervollstandigen 
+"html
+autocmd FileType html nnoremap ;p i<p></p><space><++><esc>FpT>i
+autocmd FileType html nnoremap ;b i<b></b><++><esc>FbT>i
+autocmd FileType html nnoremap ;em i<em></em><++><esc>FeT>i
+autocmd FileType html inoremap ;p <p></p><++><esc>FpT>i
+autocmd FileType html inoremap ;b <b></b><++><esc>FbT>i
+autocmd FileType html inoremap ;em <em></em><++><esc>FeT>i
+autocmd FileType html inoremap ;n <br>
+autocmd FileType html nnoremap ;n i<br><esc> 
+autocmd FileType html nnoremap ;css i<link rel="stylesheet" type="text/css" href="<++>"><esc> 
+autocmd FileType html inoremap ;css <link rel="stylesheet" type="text/css" href="<++>"> 
+autocmd FileType html nnoremap ;1 i<h1></h1><++><esc>FhT>i
+autocmd FileType html inoremap ;1 <h1></h1><++><esc>FhT>i
+autocmd FileType html nnoremap ;2 i<h2></h2><++><esc>FhT>i
+autocmd FileType html inoremap ;2 <h2></h2><++><esc>FhT>i
+autocmd FileType html nnoremap ;a i<a href=""><++></a><space><++><esc>F"i
+"latex settings
+"
+set grepprg=grep\ -nh\ $*
+let g:tex_flavor='latex'
+
+" Markdown Settings
+
+autocmd FileType markdown nnoremap ;b i**<++>**<esc>
+autocmd FileType markdown inoremap ;b **<++>** 
+autocmd FileType markdown nnoremap ;i i_<++>_<esc> 
+autocmd FileType markdown inoremap ;i _<++>_ 
+
+"LaTeX Settings
+autocmd FileType tex nnoremap ;b i\textbf{}<esc>Ff2li
+autocmd FileType tex inoremap ;b \textbf{}<esc>Ff2li
+
+autocmd FileType tex nnoremap ;i i\emph{}<esc>Fh2li
+autocmd FileType tex inoremap ;i \emph{}<esc>Fh2li
+
+autocmd FileType tex nnoremap ;s i\section{}<esc>Fn2li
+autocmd FileType tex inoremap ;s \section{}<esc>Fn2li
+
+autocmd FileType tex nnoremap ;ss i\subsection{}<esc>Fn2li
+autocmd FileType tex inoremap ;ss \subsection{}<esc>Fn2li
+
+autocmd FileType tex nnoremap ;sss i\subsubsection{}<esc>Fn2li
+autocmd FileType tex inoremap ;sss \subsubsection{}<esc>Fn2li
+
+autocmd FileType tex nnoremap ;ti i<return>\title{<++>}<return>\author{Kevin Dylla}<return>\maketitle<return>
+autocmd FileType tex inoremap ;ti i<return>\title{<++>}<return>\author{Kevin Dylla}<return>\maketitle<return>
+
+autocmd FileType tex nnoremap <C-k> :w<Enter>:!(setsid<Space>pdflatex<Space><C-R>%<Space>&><space>/dev/null&)<Enter><Enter>   
+
+autocmd FileType tex nnoremap <C-o> :!<Space>setsid<Space>evince<Space><C-R>%<Backspace><Backspace><Backspace>pdf<Space>&><Space>/dev/null<Space>&<Enter><Enter>
+
 
