@@ -4,9 +4,6 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'NLKNguyen/papercolor-theme'
@@ -17,7 +14,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-Plugin 'valloric/matchtagalways'
+"Plugin 'valloric/matchtagalways'
 Plugin 'marcweber/vim-addon-mw-utils'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
@@ -32,8 +29,9 @@ Plugin 'vim-latex/vim-latex'
 Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'shougo/neocomplete.vim'
-Plugin 'yggdroot/indentline'
+"Plugin 'yggdroot/indentline'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'flazz/vim-colorschemes'
 " all of your plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -47,12 +45,12 @@ set rtp+=~/.fzf
 "Easy saving
 inoremap <C-s> <Esc>:w!<Enter>i
 nnoremap <C-s> :w!<Enter>
-"Auto reload vimrc
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
-
+"Source ~/.vimrc
+nnoremap ;lrc :source $MYVIMRC<cr>
+set relativenumber
+nnoremap <C-e> :NERDTreeToggle<cr>
+nnoremap <C-p> :CtrlP<CR>
+nnoremap ß $
 filetype plugin on
 filetype indent on
 set statusline+=%#warningmsg#
@@ -67,13 +65,6 @@ let delimitmate_expand_cr = 1
 let g:colorizer_auto_color = 1
 " set to auto read when a file is changed from the outside
 set autoread
-" default mapping
-let g:multi_cursor_next_key='<c-x>'
-let g:multi_cursor_prev_key='<c-b>'
-let g:multi_cursor_skip_key='<c-o>'
-let g:multi_cursor_quit_key='<esc>'
-" map start key separately from next key
-let g:multi_cursor_start_key='<f6>'
 
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -81,41 +72,28 @@ let mapleader = "ä"
 let g:mapleader = "ä"
 autocmd stdinreadpre * let s:std_in=1
 map <c-t> :nerdtreetoggle<cr>
+
 let g:LatexBox_latexmk_options = "-pvc -pdfps"
 let g:Tex_CompileRule_pdf = 'latexmk -pdf'
+
 " fast saving
 nmap <leader>w :w!<cr>
+
 let g:ycm_python_binary_path = '/usr/bin/python3'
 
-let base16colorspace=256  " access colors present in 256 colorspace
-set bg=dark    
+set bg=dark   
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" set 7 lines to the cursor - when moving vertically using j/k
-set so=7
 let g:airline_powerline_fonts = 1
 
 " avoid garbled characters in chinese language windows os
 let $lang='en' 
 set langmenu=en
 
-" turn on the wild menu
-set wildmenu
-set relativenumber
-" ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
-else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.ds_store
-endif
 
 "always show current position
 set ruler
-
-" height of the command bar
-set cmdheight=2
 
 " a buffer becomes hidden when it is abandoned
 set hid
@@ -144,6 +122,7 @@ set magic
 
 " show matching brackets when text indicator is over them
 set showmatch 
+
 " how many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -163,22 +142,12 @@ set foldcolumn=1
 " enable syntax highlighting
 syntax enable 
 
-colorscheme gruvbox 
+colorscheme basic-dark	 
 
 
-" set extra options when running in gui mode
-if has("gui_running")
-    set guioptions-=t
-    set guioptions-=e
-    set t_co=256
-    set guitablabel=%m\ %t
-endif
 
 " set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
-
-" use unix as the standard file type
-set ffs=unix,dos,mac
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -258,11 +227,6 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 """"""""""""""""""""""""""""""
 " always show the status line
 set laststatus=2
-
-" format the status line
-set statusline=\ %{haspaste()}%f%m%r%h\ %w\ \ cwd:\ %r%{getcwd()}%h\ \ \ line:\ %l\ \ column:\ %c
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -282,15 +246,18 @@ map <leader>ss :setlocal spell!<cr>
 if has("autocmd")
 au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'ctrlp'
 
 noremap <c-c> :set paste<cr> 
 noremap <c-f> :set nopaste<cr>
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='base16'
+let g:airline_theme='tomorrow'
 let g:livepreview_previewer = 'zathura'
+
 " keine pfeiltasten
 noremap <up> <nop>
 noremap <down> <nop>
@@ -299,17 +266,14 @@ noremap <right> <nop>
 
 nnoremap <f10> :syntastictogglemode<cr>
 nnoremap <f9> :syntasticcheck<cr>
-nnoremap ü  `
-nnoremap ä  <leader>
-nnoremap ß  $
-nnoremap ö  {
-nnoremap ö  }
+
 cmap w!! w !sudo tee % > /dev/null
 nnoremap tn :tabnew<space>
 nnoremap tk :tabnext<cr>
 nnoremap tj :tabprev<cr>
 nnoremap th :tabfirst<cr>
 nnoremap tl :tablast<cr>
+
 let g:easymotion_do_mapping = 0 " disable default mappings
 
 " jump to anywhere you want with minimal keystrokes, with just one key binding.
@@ -406,13 +370,13 @@ map <space><space> <esc>/<++><enter>"_c4l
 
 nnoremap ;gui i<++><esc>
 inoremap ;gui <++>
+"ersetzt space space , wenn gebraucht
 inoremap <C-l> <Space><Space>
-nnoremap ;it vit<esc>i
-inoremap ;it <esc>vit<esc>i
-nnoremap ;ct vitc
-inoremap ;ct <esc>vitc
-
 "auto vervollstandigen 
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType python set omnifunc=csscomplete#CompletePython
+autocmd FileType html set omnifunc=csscomplete#CompleteHTML
 "html
 autocmd FileType html nnoremap ;p i<p></p><space><++><esc>FpT>i
 autocmd FileType html nnoremap ;b i<b></b><++><esc>FbT>i
@@ -429,10 +393,14 @@ autocmd FileType html inoremap ;1 <h1></h1><++><esc>FhT>i
 autocmd FileType html nnoremap ;2 i<h2></h2><++><esc>FhT>i
 autocmd FileType html inoremap ;2 <h2></h2><++><esc>FhT>i
 autocmd FileType html nnoremap ;a i<a href=""><++></a><space><++><esc>F"i
-"latex settings
-"
-set grepprg=grep\ -nh\ $*
-let g:tex_flavor='latex'
+autocmd FileType html inoremap ;a <a href=""><++></a><space><++><esc>F"i
+" Jump between HTML Tags , with NO content
+autocmd FileType html inoremap ;it <esc>vit<esc>i
+autocmd FileType html nnoremap ;it vit<esc>i
+"Change within tag (HTML) ~< Test
+nnoremap ;ct vitc
+inoremap ;ct <esc>vitc
+
 
 " Markdown Settings
 
@@ -463,5 +431,20 @@ autocmd FileType tex inoremap ;ti i<return>\title{<++>}<return>\author{Kevin Dyl
 autocmd FileType tex nnoremap <C-k> :w<Enter>:!(setsid<Space>pdflatex<Space><C-R>%<Space>&><space>/dev/null&)<Enter><Enter>   
 
 autocmd FileType tex nnoremap <C-o> :!<Space>setsid<Space>evince<Space><C-R>%<Backspace><Backspace><Backspace>pdf<Space>&><Space>/dev/null<Space>&<Enter><Enter>
+"latex settings
+"
+set grepprg=grep\ -nh\ $*
+let g:tex_flavor='latex'
+
+let g:Tex_DefaultTargetFormat='pdf'
+"Umlaute [Test]
+autocmd FileType tex inoremap ä "{a}
+autocmd FileType tex inoremap Ä "{A}
+autocmd FileType tex inoremap ü "{u}
+autocmd FileType tex inoremap Ü "{U}
+autocmd FileType tex inoremap ö "{o}
+autocmd FileType tex inoremap Ö "{O}
+autocmd FileType tex inoremap ß \ss{}
+
 
 
