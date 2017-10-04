@@ -2,12 +2,13 @@
 
 set $mod Mod4
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 5
 
 new_window 1pixel
 
-#font pango:Inconsolta-dz dz 11 
-font pango:Sauce Code Powerline Bold 10
+
+font pango:Terminus 13
+#font pango:Sauce Code Powerline Bold 10
 #font pango:Monaco Regular 11
 hide_edge_borders both
 
@@ -26,20 +27,12 @@ set $white     #C5C8C6
 set $red       #FF0000
 set $blue      #005588
 
-####dmenu#####
-bindsym $mod+d exec rofi -show run -lines 7 --hide-scrollbar -eh 3 -width 100 -padding 100  -bw 0 -bc "#0e0f10" -bg "#0e0f10" -hlbg "#0e0f10" -hlfg "#0e0f10" -fg "#0e0f10" -font "Hurmit Nerd Font bold 17"
-bindsym $mod+y fullscreen disable; floating enable; resize set 600 400; sticky enable; move window to position 1940 54
-bindsym $mod+Shift+y fullscreen enable; floating disable; resize set 600 400; sticky enable; move window to position 1940 54
-bindsym $mod+n exec ~/.i3/sp.sh next
-bindsym $mod+b exec ~/.i3/sp.sh prev
-bindsym $mod+m exec ~/.i3/sp.sh play
-
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 
-bindsym $mod+Return exec gnome-terminal --hide-menubar
+#bindsym $mod+Return exec gnome-terminal --hide-menubar
+bindsym $mod+Return exec urxvt
 bindsym XF86Calculator exec galculator
 
 bindsym $mod+Shift+x kill
@@ -88,7 +81,7 @@ bindsym $mod+v split v
 # GAPS
 
 gaps inner 28
-gaps outer 28
+gaps outer 50
 
 bindsym $mod+p          gaps inner current plus 5
 
@@ -96,12 +89,12 @@ bindsym $mod+Shift+p    gaps inner current minus 5
 
 bindsym $mod+Shift+g    gaps inner all set 0; gaps outer all set 0
 
-bindsym $mod+Shift+d    gaps inner all set 15; gaps outer all set 15
+bindsym $mod+Shift+d    gaps inner all set 28; gaps outer all set 50
 
 #
 
-bindsym $mod+Ctrl+r  exec gnome-terminal --hide-menubar -e ranger
-bindsym $mod+Shift+v  exec gnome-terminal --hide-menubar -e gnome-terminal --hide-menubar -e vim
+bindsym $mod+Ctrl+r  exec urxvt -e ranger
+bindsym $mod+Shift+v  exec urxvt -e vim
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -116,19 +109,17 @@ bindsym $mod+Shift+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
-bindsym $mod+a focus parent
 
-set $workspace1 "1  "
-set $workspace2 "2  "
-set $workspace3 "3  "
-set $workspace4 "4 ✎" 
-set $workspace5 "5 "
-set $workspace6 "6 "
-set $workspace7 "7 "
-set $workspace8 "8 "
-set $workspace9 "9 "
-set $workspace10 "10  "
+set $workspace1 " 1 "
+set $workspace2 " 2 "
+set $workspace3 " 3 "
+set $workspace4 " 4 " 
+set $workspace5 " 5 "
+set $workspace6 " 6 "
+set $workspace7 " 7 "
+set $workspace8 " 8 "
+set $workspace9 " 9 "
+set $workspace10 " 10 "
 #"
 bindsym $mod+Shift+1 move container to workspace $workspace1
 bindsym $mod+Shift+2 move container to workspace $workspace2
@@ -154,7 +145,6 @@ bindsym $mod+9 workspace $workspace9
 bindsym $mod+0 workspace $workspace10
 
 assign [instance="qutebrowser"] $workspace2
-assign [instance="Spotify"] $workspace3
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -200,45 +190,58 @@ set $urgent-bg-color     #E53945
 ##E53945
 
 # window colors
-#                       border              background         text                 indicator
-client.focused          #000000           $black          $text-color               #030585
-client.unfocused        $iancative-bg-color $inactive-bg-color $inactive-text-color #030585
-client.focused_inactive $iancative-bg-color $inactive-bg-color $inactive-text-color #030585
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #030585
 
-bar {
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.color2 #f0f0f0
 
-	colors {
-		background $black
-	    	separator #757575
-		#                  border             background         text
-		focused_workspace  $bg-color          $black          $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-	}
-	# i3bar position
-	position top
-	# Using custom i3status.conf
-    status_command i3blocks
-}
+# class                 border  backgr. text indicator child_border
+client.focused          $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.unfocused        $bg     $bg     $fg  $bg       $bg
+client.urgent           $bg     $bg     $fg  $bg       $bg
+client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+client.background       $bg
+
+# PROTIP: You can also dynamically set dmenu's colors this way:
+#bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
+bindsym $mod+d exec rofi -show run
 
 
-bindsym $mod+q exec qutebrowser
+## Im so sorry :p ###
+bindsym $mod+q exec ~/.config/qutebrowser.sh
 bindsym $mod+Shift+q exec ~/.i3/lock.sh
-bindsym $mod+shift+f exec rofi -show fb -modi fb:/home/k/.rofi/rofi-file-browser.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Hurmit Nerd Font bold 14"
-bindsym $mod+shift+w exec rofi -show ws -modi ws:/home/k/.rofi/i3_switch_workspaces.sh -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Hurmit Nerd Font bold 14"
-bindsym $mod+shift+s exec rofi -bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Hurmit Nerd Font bold 18" -show SSearch -modi SSearch:/home/k/.rofi/test.sh
-bindsym $mod+shift+n exec nautilus --no-desktop
-bindsym $mod+shift+b exec qutebrowser
-exec_always feh --bg-scale /home/k/Pictures/Backgrounds/wallpaper.jpg
-exec_always redshift
-exec --no-startup-id compton -F --config ~/.stuff/.compton.conf
-exec --no-startup-id xrdb -load ~/.Xresources
-exec --no-startup-id i3-msg 'workspace $workspace2; exec qutebrowser'
-exec --no-startup-id i3-msg 'workspace $workspace1; exec /usr/bin/gnome-terminal --hide-menubar'
-exec --no-startup-id i3-msg 'workspace $workspace3; exec /usr/bin/spotify'
+exec_always feh --bg-scale ~/.config/wall.png
+exec_always --no-startup-id compton -F --config ~/.compton.conf
+exec --no-startup-id i3-msg 'workspace $workspace2; exec ~/.config/qutebrowser.sh'
 exec_always setxkbmap -option caps:swapescape
-exec bash ~/.stuff/test.sh
-exec_always compton --inactive-dim 0.3 --focus-exclude '_NET_WM_NAME@:s = "rofi"' -c -f -C -r 15 --config=/home/k/.config/compton.conf --shadow-blue 0.8 --shadow-green 0.8 --shadow-red 0.8
-exec guake
-bindsym $mod+c exec rofi --bc "#555555" -bg "#222222" -hlbg "#222222" -hlfg "#c79595" -fg "#ffffff" -font "Hurmit Nerd Font bold 14" -modi "clipboard:greenclip print" -show clipboard
+
+exec_always greenclip daemon
+
+bindsym $mod+c exec rofi -lines 7 -modi "clipboard:greenclip print" -show clipboard
+
+
+bindsym $mod+Ctrl+v exec urxvt -e ncmpcpp -s visualizer
+
+#### MUSIC ####
+
+bindsym $mod+Ctrl+n exec --no-startup-id mpc next
+bindsym $mod+Ctrl+p exec --no-startup-id mpc prev
+bindsym $mod+Ctrl+m exec --no-startup-id amixer sset Master toggle
+
+#### WAL ###
+exec_always wal -i "$(< "${HOME}/.cache/wal/wal")"
+
+bindsym $mod+Ctrl+w exec "wal -i $HOME/Pictures/Wallpapers/Comfy -o wal-set"
+exec_always ~/.config/polybar/launch.sh
+
+
+### DAY AND NIGHT ###
+
+bindsym $mod+Ctrl+d exec "wal -i /home/kev/Pictures/Wallpapers/Comfy/NIGHT.jpg"
+bindsym $mod+Ctrl+t exec "wal -i /home/kev/Pictures/Wallpapers/misc/DAY.jpg"
