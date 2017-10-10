@@ -3,35 +3,49 @@ filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+" If installed using git
+set rtp+=~/.fzf
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'davidhalter/jedi-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 "Plugin 'valloric/matchtagalways'
 Plugin 'marcweber/vim-addon-mw-utils'
 Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-markdown'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-commentary'
 Plugin 'chrisbra/colorizer'
-Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'mattn/emmet-vim'
-Plugin 'greyblake/vim-preview'
-Plugin 'vim-latex/vim-latex'
-Plugin 'uguu-org/vim-matrix-screensaver'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'shougo/neocomplete.vim'
 "Plugin 'yggdroot/indentline'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'morhetz/gruvbox'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'junegunn/fzf.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'neomake/neomake'
+
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-space>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+"
 " all of your plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -49,29 +63,15 @@ nnoremap <C-s> :w!<Enter>
 nnoremap ;lrc :source $MYVIMRC<cr>
 set relativenumber
 nnoremap <C-e> :NERDTreeToggle<cr>
-nnoremap <C-p> :CtrlP<CR>
 nnoremap ß $
 filetype plugin on
 filetype indent on
-set statusline+=%#warningmsg#
-set statusline+=%{syntasticstatuslineflag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let delimitmate_expand_cr = 1
-let g:colorizer_auto_color = 1
-" set to auto read when a file is changed from the outside
 set autoread
-
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = "ä"
 let g:mapleader = "ä"
 autocmd stdinreadpre * let s:std_in=1
-map <c-t> :nerdtreetoggle<cr>
 
 let g:LatexBox_latexmk_options = "-pvc -pdfps"
 let g:Tex_CompileRule_pdf = 'latexmk -pdf'
@@ -141,10 +141,12 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable syntax highlighting
 syntax enable 
-
-colorscheme basic-dark	 
-
-
+""""""" GruvBox""""""
+let g:gruvbox_italic= 1
+" colorscheme PaperColor
+"colorscheme grb256
+colorscheme codedark
+let g:airline_theme='minimalist'
 
 " set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
@@ -246,17 +248,13 @@ map <leader>ss :setlocal spell!<cr>
 if has("autocmd")
 au bufreadpost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'ctrlp'
-
 noremap <c-c> :set paste<cr> 
-noremap <c-f> :set nopaste<cr>
+noremap <c-n> :FZF<cr> 
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='tomorrow'
-let g:livepreview_previewer = 'zathura'
+let g:airline_theme='minimalist'
+" let g:livepreview_previewer = 'zathura'
 
 " keine pfeiltasten
 noremap <up> <nop>
@@ -264,8 +262,6 @@ noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
 
-nnoremap <f10> :syntastictogglemode<cr>
-nnoremap <f9> :syntasticcheck<cr>
 
 cmap w!! w !sudo tee % > /dev/null
 nnoremap tn :tabnew<space>
@@ -290,78 +286,7 @@ let g:easymotion_smartcase = 1
 " jk motions: line motions
 map <leader>j <plug>(easymotion-j)
 map <leader>k <plug>(easymotion-k)
-"note: this option must be set in .vimrc(_vimrc).  not in .gvimrc(_gvimrc)!
-" disable autocomplpop.
-let g:acp_enableatstartup = 0
-" use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-" define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $home.'/.vimshell_hist',
-    \ 'scheme' : $home.'/.gosh_completions'
-        \ }
-
 " define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" plugin key-mappings.
-inoremap <expr><c-g>     neocomplete#undo_completion()
-inoremap <expr><c-l>     neocomplete#complete_common_string()
-
-" recommended key-mappings.
-" <cr>: close popup and save indent.
-inoremap <silent> <cr> <c-r>=<sid>my_cr_function()<cr>
-function! s:my_cr_function()
-  return (pumvisible() ? "\<c-y>" : "" ) . "\<cr>"
-  " for no inserting <cr> key.
-  "return pumvisible() ? "\<c-y>" : "\<cr>"
-endfunction
-" <tab>: completion.
-inoremap <expr><tab>  pumvisible() ? "\<c-n>" : "\<tab>"
-" <c-h>, <bs>: close popup and delete backword char.
-inoremap <expr><c-h> neocomplete#smart_close_popup()."\<c-h>"
-inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
-" close popup by <space>.
-"inoremap <expr><space> pumvisible() ? "\<c-y>" : "\<space>"
-
-" autocomplpop like behavior.
-"let g:neocomplete#enable_auto_select = 1
-
-" shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><tab>  pumvisible() ? "\<down>" : "\<c-x>\<c-u>"
-
-" enable omni completion.
-autocmd filetype css setlocal omnifunc=csscomplete#completecss
-"autocmd filetype html,markdown setlocal omnifunc=htmlcomplete#completetags
-autocmd filetype javascript setlocal omnifunc=javascriptcomplete#completejs
-autocmd filetype python setlocal omnifunc=pythoncomplete#complete
-autocmd filetype xml setlocal omnifunc=xmlcomplete#completetags
-
-" enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-" for perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-
 "Move around with Guide (<++>)
 inoremap <space><space> <esc>/<++><enter>"_c4l
 vnoremap <space><space> <esc>/<++><enter>"_c4l
@@ -373,10 +298,6 @@ inoremap ;gui <++>
 "ersetzt space space , wenn gebraucht
 inoremap <C-l> <Space><Space>
 "auto vervollstandigen 
-set omnifunc=syntaxcomplete#Complete
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType python set omnifunc=csscomplete#CompletePython
-autocmd FileType html set omnifunc=csscomplete#CompleteHTML
 "html
 autocmd FileType html nnoremap ;p i<p></p><space><++><esc>FpT>i
 autocmd FileType html nnoremap ;b i<b></b><++><esc>FbT>i
