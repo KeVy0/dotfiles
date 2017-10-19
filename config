@@ -1,10 +1,13 @@
-
+#vim ft=dosini
 
 set $mod Mod4
 
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 3
 
 new_window 1pixel
+
+for_window [class="mpv" instance="gl"] floating enable
+
 
 
 font pango:Terminus 13
@@ -32,7 +35,7 @@ floating_modifier $mod
 
 
 #bindsym $mod+Return exec gnome-terminal --hide-menubar
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec xfce4-terminal
 bindsym XF86Calculator exec galculator
 
 bindsym $mod+Shift+x kill
@@ -45,29 +48,17 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
 
 
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+odiaeresis focus right
-
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Shift+h focus left
+bindsym $mod+Shift+j focus down
+bindsym $mod+Shift+k focus up
+bindsym $mod+Shift+l focus right
 
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# # move focused window
+# bindsym $mod+Shift+j move left
+# bindsym $mod+Shift+k move down
+# bindsym $mod+Shift+l move up
+# bindsym $mod+Shift+odiaeresis move right
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -93,8 +84,8 @@ bindsym $mod+Shift+d    gaps inner all set 28; gaps outer all set 50
 
 #
 
-bindsym $mod+Ctrl+r  exec urxvt -e ranger
-bindsym $mod+Shift+v  exec urxvt -e vim
+bindsym $mod+Ctrl+r  exec xfce4-terminal -e ranger
+bindsym $mod+Shift+v  exec xfce4-terminal -e vim
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
@@ -199,15 +190,15 @@ set $urgent-bg-color     #E53945
 set_from_resource $fg i3wm.color7 #f0f0f0
 set_from_resource $bg i3wm.color2 #f0f0f0
 
-# class                 border  backgr. text indicator child_border
-client.focused          $bg     $bg     $fg  $bg       $bg
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
-client.unfocused        $bg     $bg     $fg  $bg       $bg
-client.urgent           $bg     $bg     $fg  $bg       $bg
-client.placeholder      $bg     $bg     $fg  $bg       $bg
 
-client.background       $bg
 
+client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54
+client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a
+client.unfocused        #3c3836 #3c3836 #a89984 #292d2e   #222222
+client.urgent           #cc241d #cc241d #ebdbb2 #cc241d   #cc241d
+client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+client.background       #ffffff
 # PROTIP: You can also dynamically set dmenu's colors this way:
 #bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
 bindsym $mod+d exec rofi -show run
@@ -224,24 +215,34 @@ exec_always setxkbmap -option caps:swapescape
 exec_always greenclip daemon
 
 bindsym $mod+c exec rofi -lines 7 -modi "clipboard:greenclip print" -show clipboard
+bindsym $mod+o exec rofi -show s -modi s:~/.config/rofi/rofi_search.sh
 
 
-bindsym $mod+Ctrl+v exec urxvt -e ncmpcpp -s visualizer
+
+bindsym $mod+Ctrl+v exec xfce4-terminal -e ncmpcpp -s visualizer
 
 #### MUSIC ####
 
 bindsym $mod+Ctrl+n exec --no-startup-id mpc next
 bindsym $mod+Ctrl+p exec --no-startup-id mpc prev
 bindsym $mod+Ctrl+m exec --no-startup-id amixer sset Master toggle
-
-#### WAL ###
-exec_always wal -i "$(< "${HOME}/.cache/wal/wal")"
-
-bindsym $mod+Ctrl+w exec "wal -i $HOME/Pictures/Wallpapers/Comfy -o wal-set"
 exec_always ~/.config/polybar/launch.sh
+
 
 
 ### DAY AND NIGHT ###
 
 bindsym $mod+Ctrl+d exec "wal -i /home/kev/Pictures/Wallpapers/Comfy/NIGHT.jpg"
 bindsym $mod+Ctrl+t exec "wal -i /home/kev/Pictures/Wallpapers/misc/DAY.jpg"
+
+
+### i3 Workspace <-> ###
+
+bindsym $mod+Shift+Right workspace next
+bindsym $mod+Shift+Left workspace prev
+
+bindsym $mod+XF86Mail        exec --no-startup-id ~/.config/Scripts/mailsyncloop.sh
+bindsym XF86Mail        exec --no-startup-id xfce4-terminal -e mutt
+
+
+

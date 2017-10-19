@@ -1,104 +1,231 @@
-rofi.color-enabled: true
-rofi.color-window: #0e0f10, #0e0f10, #1e2529
-rofi.color-normal: #0e0f10, #c1c1c1, #0e0f10, #394249, #ffffff
-rofi.color-active: #0e0f10, #80cbc4, #0e0f10, #394249, #80cbc4
-rofi.color-urgent: #0e0f10, #ff1844, #0e0f10, #394249, #ff1844
-rrofi.key-run: Alt+d
-! rofi -- dmenu clone
-rofi.key-window: Alt+w
+URxvt.intensityStyles: false
+URxvt.scrollBar: false
 
-rofi.key-ssh: Alt+s
+! Ctrl Up and Down control font size
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
+! copy paste
+URxvt.keysym.Shift-Control-V:   perl:clipboard:paste
+URxvt.keysym.Shift-Control-C:   perl:clipboard:copy
 
-rofi.opacity:  100
-rofi.width:    70
-rofi.lines:    15
-rofi.font:     Hack 12
-rofi.location: 0
-rofi.padding:  5
-! rofi -- dmenu clone
-! rofi.opacity:  100
-! rofi.width:    90
-! rofi.lines:    25
-! rofi.font:     DejaVu Sans Mono 7
-! rofi.location: 0
-! rofi.padding:  5
+! disable ctrl-shift
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+! font
+!URxvt*font: xft:Source Code Pro Medium:size=10:antialias=true:hinting=true,xft:Liberation Mono:size=13:antialias=true:hinting=true
+URxvt.font: xft:Inconsolata\-dz for Powerline:style=dzForPowerline:pixelsize=17,xft:PowerlineSymbols
+
+!URxvt.font: xft:DejaVu Sans Mono:size=9
+
+! terminal padding
+URxvt.internalBorder: 25
+
+Xft.autohint:   0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting:    true
+Xft.antialias:  true
+Xft.rgba:       rgb
+
+! clickable links, clipboard support, mouse wheel support, and on the fly font resizing
+URxvt.perl-ext-common: selection-to-clipboard,vim-scrollback,matcher,url-select
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.matcher.rend.0: Uline Bold fg6
+URxvt.colorUL: #282828
+URxvt.url-launcher:	qutebrowser
+URxvt.matcher.button:	1
+! enable the extension (note that you must use an absolute path, no ~/...)
+urxvt*perl-lib: /home/kev/.config/urxvt-plugins/
+urxvt.vim-scrollback: M-s
+
+urxvt.vim-scrollback-paste: M-p
+
+urxvt.vim-scrollback-bg: 16
+urxvt.vim-scrollback-fg: 10
+
+urxvt.vim-scrollback.pattern.1: \\B(/\\S+?):(\\d+)(?=:|$)
+urxvt.vim-scrollback.launcher.1: gvim +$2 $1
+
+!! colors
+!*.cursorColor:  #ebdbb2
+!*.background: #282828
+!*.foreground: #ebdbb2
 !
+!! black
+!*.color0:       #282828
+!*.color8:       #928374
 !
-! ! State:           bg,     fg,     bgalt   hlbg,   hlfg
-! ! zenburn:         bg,     fg,     bg-05,  bg+1,   fg+1
-
+!! red
+!*.color1:       #cc241d
+!*.color9:       #fb4934
+!
+!! green
+!*.color2:       #98971a
+!*.color10:      #b8bb26
+!
+!! yellow
+!*.color3:       #d79921
+!*.color11:      #fabd2f
+!
+!! blue
+!*.color4:       #458588
+!*.color12:      #83a598
+!
+!! magenta
+!*.color5:       #b16286
+!*.color13:      #d3869b
+!
+!! cyan
+!*.color6:       #689d6a
+!*.color14:      #8ec07c
+!
+!! white
+!*.color7:       #a89984
+!*.color15:      #ebdbb2
+!
+!! 256 color resources
+!*.color24:  #076678
+!*.color66:  #427b58
+!*.color88:  #9d0006
+!*.color96:  #8f3f71
+!*.color100: #79740e
+!*.color108: #8ec07c
+!*.color109: #83a598
+!*.color130: #af3a03
+!*.color136: #b57614
+!*.color142: #b8bb26
+!*.color167: #fb4934
+!*.color175: #d3869b
+!*.color208: #fe8019
+!*.color214: #fabd2f
+!*.color223: #ebdbb2
+!*.color228: #f4e8ba
+!*.color229: #fdf4c1
+!*.color230: #ffffc8
+!*.color234: #1d2021
+!*.color235: #282828
+!<*.color236: #32302f
+!*.color237: #3c3836
+!*.color239: #504945
+!*.color241: #665c54
+!*.color243: #7c6f64
+!*.color244: #928374
+!*.color245: #928374
+!*.color246: #a89984
+!*.color248: #bdae93
+!*.color250: #d5c4a1
+!
+!! rofi theme
+!rofi.color-enabled: true
+!!                  bg       border   separator
+!rofi.color-window: argb:d0282828, #a89984, #a89984
+!!                  bg             fg       bg-alt   hl-bg    hl-fg
+!rofi.color-normal: argb:d0282828, #ebdbb2, argb:d032302f, #665c54, #fbf1c7
+!rofi.color-active: argb:d0d79921, #282828, argb:d0d79921, #fabd2f, #282828
+!rofi.color-urgent: argb:d0cc241d, #282828, argb:d0cc241d, #fb4934, #282828
+!
+!rofi.separator-style: solid
+!rofi.hide-scrollbar: true
+!
+!! colors
+!*.cursorColor:  #ebdbb2
+!*.background: #282828
+!*.foreground: #ebdbb2
+!
+!! black
+!*.color0:       #282828
+!*.color8:       #928374
+!
+!! red
+!*.color1:       #cc241d
+!*.color9:       #fb4934
+!
+!! green
+!*.color2:       #98971a
+!*.color10:      #b8bb26
+!
+!! yellow
+!*.color3:       #d79921
+!*.color11:      #fabd2f
+!
+!! blue
+!*.color4:       #458588
+!*.color12:      #83a598
+!
+!! magenta
+!*.color5:       #b16286
+!*.color13:      #d3869b
+!
+!! cyan
+!*.color6:       #689d6a
+!*.color14:      #8ec07c
+!
+!! white
+!*.color7:       #a89984
+!*.color15:      #ebdbb2
+!
+! 256 color resources
 ! special
-*.foreground:   #0e0f10
-*.background:   #c5c8c6
-*.cursorColor:  #c5c8c6
+*.foreground:   #ababab
+*.background:   #000000
+*.cursorColor:  #ababab
 
 ! black
-*.color0:       #1d1f21
-*.color8:       #969896
+*.color0:       #000000
+*.color8:       #343434
 
 ! red
-*.color1:       #cc342b
-*.color9:       #cc342b
+*.color1:       #e92f2f
+*.color9:       #e92f2f
 
 ! green
-*.color2:       #198844
-*.color10:      #198844
+*.color2:       #0ed839
+*.color10:      #0ed839
 
 ! yellow
-*.color3:       #fba922
-*.color11:      #fba922
+*.color3:       #dddd13
+*.color11:      #dddd13
 
 ! blue
-*.color4:       #3971ed
-*.color12:      #3971ed
+*.color4:       #3b48e3
+*.color12:      #3b48e3
 
 ! magenta
-*.color5:       #a36ac7
-*.color13:      #a36ac7
+*.color5:       #f996e2
+*.color13:      #f996e2
 
 ! cyan
-*.color6:       #3971ed
-*.color14:      #3971ed
+*.color6:       #23edda
+*.color14:      #23edda
 
 ! white
-*.color7:       #c5c8c6
-*.color15:      #ffffff
+*.color7:       #ababab
+*.color15:      #f9f9f9
 
-! -----------------------------------------------------------------------------
-! File: gruvbox-urxvt256.xresources
-! Description: Retro groove colorscheme generalized
-! Author: morhetz <morhetz@gmail.com>
-! Source: https://github.com/morhetz/gruvbox-generalized
-! Last Modified: 13 Dec 2013
-! -----------------------------------------------------------------------------
 
-URxvt.color24:  #076678
-URxvt.color66:  #427b58
-URxvt.color88:  #9d0006
-URxvt.color96:  #8f3f71
-URxvt.color100: #79740e
-URxvt.color108: #8ec07c
-URxvt.color109: #83a598
-URxvt.color130: #af3a03
-URxvt.color136: #b57614
-URxvt.color142: #b8bb26
-URxvt.color167: #fb4934
-URxvt.color175: #d3869b
-URxvt.color208: #fe8019
-URxvt.color214: #fabd2f
-URxvt.color223: #ebdbb2
-URxvt.color228: #f2e5bc
-URxvt.color229: #fbf1c7
-URxvt.color230: #f9f5d7
-URxvt.color234: #1d2021
-URxvt.color235: #282828
-URxvt.color236: #32302f
-URxvt.color237: #3c3836
-URxvt.color239: #504945
-URxvt.color241: #665c54
-URxvt.color243: #7c6f64
-URxvt.color244: #928374
-URxvt.color245: #928374
-URxvt.color246: #a89984
-URxvt.color248: #bdae93
-URxvt.color250: #d5c4a1
+
+
+!-------------------------------------------------------------------------------
+! Rofi color theme
+!
+! Based on the Gruvbox color scheme for Vim by morhetz
+! https://github.com/morhetz/gruvbox
+!
+! File: gruvbox-dark.theme
+! Desc: Gruvbox dark color theme for Rofi
+! Author: bardisty <b@bah.im>
+! Source: https://github.com/bardisty/gruvbox-rofi
+! Modified: Sat Oct 22 2016 03:11:40 PDT -0700
+!-------------------------------------------------------------------------------
+
+! Enable the extended coloring options
+rofi.color-enabled: true
+
+!                  bg       border   separator
+rofi.color-window: #282828, #a89984, #a89984
+
+!                  bg       fg       bg-alt   hl-bg    hl-fg
+rofi.color-normal: #282828, #ebdbb2, #32302f, #665c54, #fbf1c7
+rofi.color-active: #d79921, #282828, #d79921, #fabd2f, #282828
+rofi.color-urgent: #cc241d, #282828, #cc241d, #fb4934, #282828

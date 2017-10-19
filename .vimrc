@@ -8,12 +8,10 @@ set rtp+=~/.fzf
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 "Plugin 'valloric/matchtagalways'
 Plugin 'marcweber/vim-addon-mw-utils'
-Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-markdown'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'tpope/vim-commentary'
@@ -29,14 +27,19 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'junegunn/fzf.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 Plugin 'tomasiser/vim-code-dark'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'neomake/neomake'
-
+Plugin 'christoomey/vim-system-copy'
+Plugin 'wikitopian/hardmode'
+Plugin 'drmikehenry/vim-fontsize'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'chriskempson/base16-vim'
 
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+Plugin 'gregsexton/gitv'
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-space>"
@@ -62,15 +65,15 @@ nnoremap <C-s> :w!<Enter>
 "Source ~/.vimrc
 nnoremap ;lrc :source $MYVIMRC<cr>
 set relativenumber
-nnoremap <C-e> :NERDTreeToggle<cr>
+nnoremap <C-n> :NERDTreeToggle<cr>
 nnoremap ß $
 filetype plugin on
 filetype indent on
 set autoread
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = "ä"
-let g:mapleader = "ä"
+let mapleader = "ö"
+let g:mapleader = "ö"
 autocmd stdinreadpre * let s:std_in=1
 
 let g:LatexBox_latexmk_options = "-pvc -pdfps"
@@ -142,11 +145,9 @@ set foldcolumn=1
 " enable syntax highlighting
 syntax enable 
 """"""" GruvBox""""""
-let g:gruvbox_italic= 1
 " colorscheme PaperColor
 "colorscheme grb256
-colorscheme codedark
-let g:airline_theme='minimalist'
+colorscheme CodeFactoryv3
 
 " set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
@@ -253,7 +254,7 @@ noremap <c-n> :FZF<cr>
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='minimalist'
+let g:airline_theme='dark'
 " let g:livepreview_previewer = 'zathura'
 
 " keine pfeiltasten
@@ -274,11 +275,11 @@ let g:easymotion_do_mapping = 0 " disable default mappings
 
 " jump to anywhere you want with minimal keystrokes, with just one key binding.
 " `s{char}{label}`
-nmap s <plug>(easymotion-overwin-f)
+nmap ü <plug>(easymotion-overwin-f)
 " or
 " `s{char}{char}{label}`
 " need one more keystroke, but on average, it may be more comfortable.
-nmap s <plug>(easymotion-overwin-f2)
+nmap ü <plug>(easymotion-overwin-f2)
 
 " turn on case insensitive feature
 let g:easymotion_smartcase = 1
@@ -368,4 +369,32 @@ autocmd FileType tex inoremap Ö "{O}
 autocmd FileType tex inoremap ß \ss{}
 
 
+let g:system_copy#paste_command='xclip -sel clipboard -o'
+let g:system_copy#copy_command='xclip -sel clipboard'
 
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+tnoremap <F12> <C-\><C-n> 
+
+
+nmap j gj
+nmap k gk
+
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+
+set  rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
+set laststatus=2
+set t_Co=256

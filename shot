@@ -1,0 +1,40 @@
+#!/bin/bash
+# take a screenshot
+# usage: shot [select|focused] [path|data]
+
+OPTS=""
+FNAME=~/Documents/shots/$(date +%F-%T).png
+
+# if nothing specified, assume dmenu
+if [ -z $1 ]; then
+    DMENU=true
+    choice=$(echo -e "full\nregion\nfocused" | dmenu -i -p "shot")
+else
+    DMENU=false
+    choice=$1
+fi
+
+case $choice in
+    "region") OPTS="-s";;
+    "focused") OPTS="-i $(xdotool getactivewindow)";;
+
+    # 1s delay for dmenu to go away
+    "full") OPTS="-d 1";;
+
+    *) exit 1;;
+esac
+
+maim $OPTS $FNAME
+notify-send "screenshot saved to $FNAME"
+
+if $DMENU; then
+    choice=$(echo -e "path\ndata" | dmenu -i -p "copy")
+else
+    choice=$2
+fi
+
+case $choice in
+    "path") echo "$FNAME" | xsel -b;;
+    "data") imgclip "$FNAME" &;;
+    *) ;;
+esac

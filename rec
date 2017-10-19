@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Records a region of the screen or a window to a gif
+# Adapted from <http://askubuntu.com/a/201018>
+# also see `man recordmydesktop` for more options
+# hit CTRL+C to stop recording
+# there's also a sxhkd binding to stop recording
+
+if [[ $1 == 'region'  ]]; then
+    PTS=$(xrectsel "-x=%x -y=%y --width=%w --height=%h")
+elif [[ $1 == 'window'  ]]; then
+    PTS="--windowid $(xwininfo | awk '/Window id:/ {print $4}')"
+elif [[ $1 == 'full'  ]]; then
+    PTS=""
+else
+
+
+    o "Please specify 'full', 'region' or 'window'."
+
+t 0
+fi
+
+# https://github.com/lolilolicon/xrectsel
+TIME=$(date +%F-%T)
+VID=/tmp/recording_${TIME}.ogv
+OUT=~/docs/shots/${TIME}.gif
+recordmydesktop $OPTS -o $VID --overwrite --fps 24
+
+notify-send "[rec] converting to gif..."
+vid2gif -f 12 $VID $OUT
+
+echo ${OUT} | xsel -b
+notify-send "[rec] finished: ${OUT}"
