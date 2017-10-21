@@ -147,7 +147,7 @@ syntax enable
 """"""" GruvBox""""""
 " colorscheme PaperColor
 "colorscheme grb256
-colorscheme CodeFactoryv3
+colorscheme codedark
 
 " set utf8 as standard encoding and en_us as the standard language
 set encoding=utf8
@@ -254,7 +254,7 @@ noremap <c-n> :FZF<cr>
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='dark'
+let g:airline_theme='codedark'
 " let g:livepreview_previewer = 'zathura'
 
 " keine pfeiltasten
@@ -398,3 +398,5 @@ let g:syntastic_check_on_wq = 0
 set  rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
 set laststatus=2
 set t_Co=256
+highlight LineNr ctermfg=red
+set cursorline
